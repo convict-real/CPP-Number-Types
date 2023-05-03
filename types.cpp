@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <chrono>
+#include <cstdio>
 
 void clear_console()
 {
@@ -118,13 +119,41 @@ void is_prime()
     }
 }
 
-int main()
+void single_number()
+{
+    int number;
+    bool even, odd, prime = true;
+
+    clear_console();
+    
+    std::cout << "Enter the desired number: ";
+    std::cin >> number;
+
+    clear_console();
+
+    even = number % 2 == 0;
+    odd = number % 2 != 0;
+    for (int j = 2; j * j <= number; j++)
+    {
+        if (number % j == 0)
+        {
+            prime = false;
+            break;
+        }
+    }
+
+    printf("Number: %d\nEven: %s\nOdd: %s\nPrime: %s\n", number, even ? "true" : "false", odd ? "true" : "false", prime ? "true" : "false");
+
+    system("pause");
+}
+
+void range_number()
 {
     int choice;
 
     clear_console();
 
-    std::cout << "1. Even\n2. Odd\n3. Prime\n4. Exit" << std::endl;
+    std::cout << "1. Even\n2. Odd\n3. Prime" << std::endl;
     std::cout << "Enter your choice: ";
     std::cin >> choice;
 
@@ -146,14 +175,36 @@ int main()
 
         system("pause");
     }
-    else if (choice == 4)
-    {
-        return 0;
-    }
     else
     {
         std::cout << "Invalid choice";
         Sleep(2000);
-        return 0;
+        std::abort();
+    }
+}
+
+int main()
+{
+    int type;
+
+    clear_console();
+
+    std::cout << "1. Single\n2. Range" << std::endl;
+    std::cout << "Enter your choice: ";
+    std::cin >> type;
+
+    if (type == 1)
+    {
+        single_number();
+    }
+    else if (type == 2)
+    {
+        range_number();
+    }
+    else
+    {
+        std::cout << "\nInvalid choice.";
+        Sleep(2000);
+        std::abort();
     }
 }
